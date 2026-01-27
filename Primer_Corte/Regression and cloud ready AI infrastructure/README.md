@@ -85,6 +85,7 @@ Para mejorar este proyecto en el futuro, se podría:
 ---
 
 ## Información del Autor
-*   **Nombre**: [Tu Nombre]
+*   **Nombre**: Diego Alejandro Montes Bonilla
 *   **Curso**: Transformación Digital y Arquitectura Empresarial
 *   **Fecha**: Enero 2026
+*   **Universidad**: Escuela Colombiana de Ingeniería Julio Garavito
