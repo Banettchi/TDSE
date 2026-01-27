@@ -2,55 +2,55 @@
 
 ## Introducción
 
-El propósito de este proyecto es explorar, de manera práctica y fundamental, el ajuste de modelos de regresión aplicados a datos astrofísicos. El objetivo central es predecir la luminosidad de una estrella a partir de su masa y temperatura. Para garantizar una comprensión profunda, se ha evitado el uso de bibliotecas de alto nivel como Scikit-Learn; todo el cálculo matricial y la optimización se realizan exclusivamente con **NumPy**, y la visualización con **Matplotlib**.
+Este trabajo lo hice para meterme de lleno y entender bien cómo funcionan los modelos de regresión cuando se aplican a datos reales, en este caso de astrofísica. El objetivo era predecir qué tan luminosa es una estrella basándome en su masa y temperatura. Quise hacerlo todo "a mano" para aprender de verdad, así que no usé librerías automáticas como Scikit-Learn; todo el cálculo matemático y la optimización los hice con **NumPy**, y las gráficas con **Matplotlib**.
 
-El enfoque principal ha sido:
-*   Mencionar la claridad expositiva del código.
-*   Lograr que los resultados gráficos narren la evolución del modelo durante el entrenamiento.
+Me centré en dos cosas:
+*   Que el código se entienda fácil, explicado paso a paso.
+*   Que las gráficas cuenten la historia de cómo el modelo va aprendiendo y mejorando en cada iteración.
 
 ---
 
-## Contenido de los Notebooks
+## Qué hay en los Notebooks
 
 ### 1. 01_part1_linreg_1feature.ipynb (Masa vs Luminosidad)
-*   Implementación del modelo lineal `L_hat = w·M + b` y cálculo del error (MSE).
-*   Desarrollo de gradientes manuales, tanto en bucles como vectorizados.
-*   Optimización mediante descenso de gradiente probando diversas tasas de aprendizaje (`alphas`).
-*   Visualización de la superficie de costo y el ajuste final sobre los datos observados.
+*   Armé el modelo lineal básico `L_hat = w·M + b` y la fórmula del error (MSE).
+*   Calculé los gradientes a mano (derivadas), probando primero con bucles y luego vectorizado para que fuera más rápido.
+*   Entrené el modelo probando varias velocidades de aprendizaje (`alphas`) para ver cuál convergía mejor.
+*   Al final, grafiqué la superficie de costo y cómo quedó la línea de regresión sobre los datos.
 
 ### 2. 02_part2_polyreg.ipynb (Polinómica + Interacción Masa-Temperatura)
-*   Creación de nuevas características: `X = [M, T_scaled, M², M·T_scaled]`, normalizando la temperatura (`T/1000`) para evitar desbordes numéricos.
-*   Entrenamiento completamente vectorizado.
-*   Evaluación comparativa de tres arquitecturas (M1, M2, M3) y análisis del impacto del término de interacción.
-*   Prueba de inferencia con valores no vistos.
+*   Aquí me puse creativo con las características: creé `X = [M, T_scaled, M², M·T_scaled]`. Un detalle importante fue dividir la temperatura por 1000 (`T_scaled`) para que los números no se dispararan.
+*   El entrenamiento ya fue 100% vectorizado.
+*   Comparé tres versiones del modelo (M1, M2, M3) para ver si valía la pena complicarlo más. La interacción Masa-Temperatura resultó clave.
+*   Hice una prueba final prediciendo valores nuevos para ver qué tal respondía.
 
 ---
 
-## Requisitos Técnicos
+## Requisitos
 
 *   Python 3.x
-*   NumPy (Cálculo numérico)
-*   Matplotlib (Gráficas)
+*   NumPy (para los números)
+*   Matplotlib (para las gráficas)
 
 ---
 
-## Ejecución Local (Windows)
+## Cómo lo corrí en mi PC (Windows)
 
-1.  Se abrieron los archivos `.ipynb` utilizando un editor compatible con Jupyter (VS Code o JupyterLab).
-2.  Se ejecutaron las celdas secuencialmente.
-3.  **Nota**: Si la convergencia no era óptima, se ajustó el parámetro `alpha` (reduciéndolo) y se incrementaron las iteraciones.
+1.  Abrí los archivos `.ipynb` directamente en VS Code (también sirve JupyterLab).
+2.  Fui corriendo las celdas en orden.
+3.  **Tip**: Si veían que la pérdida no bajaba, ajustaba un poco el `alpha` (haciéndolo más pequeño) o le daba más iteraciones, y listo.
 
 ---
 
 ## Ejecución en AWS SageMaker
 
-### Proceso de Carga
-Brevemente:
-1.  Ingresé a **SageMaker Studio**.
-2.  Utilicé la opción de **Upload** para cargar ambos notebooks.
-3.  Seleccioné el kernel estándar de Python (con soporte para NumPy y Matplotlib) y ejecuté todo el flujo de trabajo sin errores.
+### Subiendo los archivos
+Fue rápido:
+1.  Entré a **SageMaker Studio**.
+2.  Le di a **Upload** y subí los dos notebooks.
+3.  Elegí el kernel básico de Python (que ya trae NumPy y Matplotlib) y corrí todo "Run All". Cero problemas.
 
-### Galería de Evidencias
+### Evidencias
 
 #### Parte 1: Regresión Lineal
 <!-- [FOTO 1: Vista general del notebook 1 en SageMaker] -->
@@ -62,29 +62,29 @@ Brevemente:
 
 ---
 
-## Comparativa: Entorno Local vs Nube
+## Local vs Nube: ¿Qué noté?
 
-Al correr los mismos scripts en ambos entornos, noté lo siguiente:
-*   **Velocidad**: La ejecución local se sintió ligeramente más ágil e inmediata. En SageMaker, el kernel tomaba unos instantes extra en iniciar operaciones pesadas.
-*   **Gráficos 3D**: Las visualizaciones interactivas o complejas tardaron un poco más en renderizar en la interfaz web de Studio.
-*   **Estabilidad**: Los resultados numéricos (pérdidas finales y pesos optimizados) fueron idénticos, validando la portabilidad del código NumPy.
-
----
-
-## Conclusiones y Aprendizajes
-
-*   **Evolución del Modelo**: El modelo lineal simple (solo Masa) captura la tendencia general, pero es insuficiente. Al introducir términos cuadráticos y la interacción con la temperatura, el error disminuye drásticamente, modelando mejor la física estelar subyacente.
-*   **Estabilidad Numérica**: Fue crucial escalar la temperatura (dividiendo por 1000). Sin esto, los gradientes explotaban.
-*   **Validación**: Las gráficas de "Predicho vs Real" mostraron claramente que el modelo más completo (M3) se ajusta mejor a la diagonal ideal.
-
-### Próximos Pasos
-Para mejorar este proyecto en el futuro, se podría:
-*   Implementar normalización automática (Z-score) para todas las variables.
-*   Añadir regularización (L2) manual para controlar los pesos en polinomios de mayor grado.
+Corrí lo mismo en mi compu y en AWS, y vi esto:
+*   **Rapidez**: En local se siente un pelín más instantáneo. En SageMaker, a veces el kernel se toma su tiempo en arrancar o en pensar las operaciones pesadas.
+*   **Gráficas 3D**: Las figuras interactivas tardan un poquito más en aparecer en la web de Studio que en mi VS Code local.
+*   **Resultados**: Lo importante es que los números (pérdidas y pesos finales) dieron idénticos. El código es totalmente portable.
 
 ---
 
-## Información del Autor
+## Conclusiones
+
+*   **¿Mejoró el modelo?**: Sí, bastante. El lineal simple (solo Masa) se quedaba corto. Cuando agregué los términos cuadráticos y mezclé la temperatura, el error bajó muchísimo y se ajustó mejor a la física real de las estrellas.
+*   **El truco de la Temperatura**: Si no escalaba la temperatura (dividiéndola), el modelo explotaba. Fue un buen aprendizaje sobre la importancia de tener los datos en la misma escala.
+*   **Validación**: Las gráficas de "Predicho vs Real" no mienten. El modelo más completo (M3) es el que mejor se pega a la línea ideal.
+
+### Para el futuro
+Si tuviera más tiempo, le agregaría:
+*   Una función que normalice todas las variables automáticamente (tipo Z-score).
+*   Regularización (L2) hecha a mano para evitar que los pesos crezcan demasiado si agrego más grados al polinomio.
+
+---
+
+## Autor
 *   **Nombre**: Diego Alejandro Montes Bonilla
 *   **Curso**: Transformación Digital y Arquitectura Empresarial
 *   **Fecha**: Enero 2026
