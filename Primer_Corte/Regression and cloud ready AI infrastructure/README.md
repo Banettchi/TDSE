@@ -32,48 +32,48 @@ Subir los archivos a SageMaker Studio fue bastante directo. Solo tuve que cargar
 
 ### Evidencias del trabajo en SageMaker
 
-![alt text](image.png)
+![alt text](assets/image.png)
 
 #### Parte 1: Regresión Lineal
 
 Punto 1:
-![alt text](image-1.png)
+![alt text](assets/image-1.png)
 Punto 2:
-![alt text](image-2.png)
+![alt text](assets/image-2.png)
 Punto 3:
-![alt text](image-3.png)
+![alt text](assets/image-3.png)
 Punto 4:
-![alt text](image-4.png)
+![alt text](assets/image-4.png)
 Punto 5:
-![alt text](image-5.png)
+![alt text](assets/image-5.png)
 Punto 6:
-![alt text](image-6.png)
+![alt text](assets/image-6.png)
 Punto 7:
-![alt text](image-7.png)
+![alt text](assets/image-7.png)
 Punto 8:
-![alt text](image-8.png)
+![alt text](assets/image-8.png)
 Punto 9:
-![alt text](image-9.png)
+![alt text](assets/image-9.png)
 
 #### Parte 2: Regresión Polinomial
 
 Punto 1:
-![alt text](image-10.png)
+![alt text](assets/image-10.png)
 Punto 2:
-![alt text](image-11.png)
+![alt text](assets/image-11.png)
 Punto 3:
-![alt text](image-18.png)
-![alt text](image-19.png)
+![alt text](assets/image-18.png)
+![alt text](assets/image-19.png)
 Punto 4:
-![alt text](image-17.png)
+![alt text](assets/image-17.png)
 Punto 5:
-![alt text](image-15.png)
-![alt text](image-16.png)
+![alt text](assets/image-15.png)
+![alt text](assets/image-16.png)
 Punto 6:
-![alt text](image-12.png)
+![alt text](assets/image-12.png)
 Punto 7:
-![alt text](image-13.png)
-![alt text](image-14.png)
+![alt text](assets/image-13.png)
+![alt text](assets/image-14.png)
 
 ---
 
