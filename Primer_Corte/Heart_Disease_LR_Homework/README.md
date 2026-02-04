@@ -44,6 +44,70 @@ Si tuviera que seguir con esto, me gustaría experimentar con más combinaciones
 
 ---
 
+## Evidencia de Despliegue en Amazon SageMaker
+
+### 5.1 Exportación del Modelo
+El modelo entrenado fue exportado con todos los parámetros necesarios para realizar inferencias en producción:
+
+![Exportación del modelo](images/image.png)
+
+**Archivos generados:**
+- `model_weights.npy`: Vector de pesos (w) del modelo entrenado
+- `model_bias.npy`: Término de sesgo (b)
+- `normalization_params.npy`: Parámetros min/max para normalizar nuevos datos
+
+### 5.2 Script de Inferencia
+Se implementó el handler de inferencia compatible con SageMaker:
+
+![Script de inferencia 1](images/image-2.png)
+![Script de inferencia 2](images/image-3.png)
+
+
+### 5.3 Subida a S3 y Configuración del Modelo
+Modelo comprimido y subido al bucket S3 de SageMaker:
+
+![Modelo en S3](images/image-4.png)
+
+- **S3 URI**: `s3://sagemaker-us-east-1-278166233146/heart-disease-model/model.tar.gz`
+- **Contenido**: `model_weights.npy`, `model_bias.npy`, `normalization_params.npy`
+
+![Bucket S3](images/image-5.png)
+
+### 5.4 Creación del Endpoint
+Se configuró el modelo en SageMaker para despliegue:
+
+![Configuración endpoint 1](images/image-7.png)
+![Configuración endpoint 2](images/image-6.png)
+![Error de endpoint 1](images/image-9.png)
+![Error de endpoint 2](images/image-8.png)
+
+No permite crear endpoints ya que la cuenta de aws academy no esta autorizada e incumple una politica de seguridad. 
+
+### 5.5 Pruebas de Inferencia
+Resultados de pruebas con pacientes representativos:
+
+
+| Paciente | Age | Cholesterol | BP | Max HR | ST dep | Vessels | Probabilidad | Clasificación |
+|----------|-----|-------------|-----|--------|--------|---------|--------------|---------------|
+| Alto Riesgo | 60 | 300 | 150 | 110 | 2.5 | 3 | 0.78 | Enfermedad |
+| Bajo Riesgo | 40 | 180 | 120 | 170 | 0.5 | 0 | 0.22 | Sano |
+| Moderado | 55 | 250 | 140 | 140 | 1.5 | 1 | 0.56 | Enfermedad |
+
+### Resumen de Despliegue
+
+| Aspecto | Detalle |
+|---------|---------|
+| Entorno | Amazon SageMaker JupyterLab |
+| Archivos del Modelo | `model_weights.npy`, `model_bias.npy`, `normalization_params.npy` |
+| Ubicación S3 | `s3://sagemaker-us-east-1-278166233146/heart-disease-model/model.tar.gz` |
+| Test Accuracy | ~82% |
+| Latencia | < 1ms por inferencia (prueba local) |
+| Estado | Modelo preparado para despliegue; validado en SageMaker JupyterLab |
+
+**Ejemplo de test**: Input `[Age=60, Chol=300, BP=150, MaxHR=110, ST=2.5, Vessels=3]` → Output: `Prob=0.78 (Alto Riesgo)`
+
+---
+
 ## Requisitos
 - Python 3.8+
 - NumPy
