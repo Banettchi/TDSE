@@ -102,7 +102,7 @@ Resultados de pruebas con pacientes representativos:
 | Ubicación S3 | `s3://sagemaker-us-east-1-278166233146/heart-disease-model/model.tar.gz` |
 | Test Accuracy | ~82% |
 | Latencia | < 1ms por inferencia (prueba local) |
-| Estado | Modelo preparado para despliegue; validado en SageMaker JupyterLab |
+| Estado | Modelo preparado para despliegue sin permisos  |
 
 **Ejemplo de test**: Input `[Age=60, Chol=300, BP=150, MaxHR=110, ST=2.5, Vessels=3]` → Output: `Prob=0.78 (Alto Riesgo)`
 
